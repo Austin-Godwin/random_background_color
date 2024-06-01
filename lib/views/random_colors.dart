@@ -11,17 +11,37 @@ class RandomColors extends StatefulWidget {
 }
 
 class _RandomColorsState extends State<RandomColors> {
-  late Color firstColor;
+  int _currentIndex = 0;
 
   @override
   void initState() {
-    changeRandomColor();
+    final random = Random();
+  _currentIndex = random.nextInt(allColors.length);
     super.initState();
   }
 
-  changeRandomColor() {
-    List<Color> allColors = [
-      Colors.green,
+  // changeRandomColor() {
+  //   List<Color> allColors = [
+      // Colors.green,
+      // Colors.pink,
+      // Colors.brown,
+      // Colors.orange,
+      // Colors.blueAccent,
+      // Colors.yellow,
+      // Colors.cyan,
+      // Colors.tealAccent,
+      // Colors.purpleAccent,
+      // Colors.purple,
+      // Colors.deepOrangeAccent,
+  //   ];
+  //   final random = Random();
+  //   firstColor = allColors[random.nextInt(allColors.length)];
+  //   console.log(firstColor.toString());
+  //   setState(() {});
+  // }
+
+  List<Color> allColors = <Color>[
+    Colors.green,
       Colors.pink,
       Colors.brown,
       Colors.orange,
@@ -32,17 +52,17 @@ class _RandomColorsState extends State<RandomColors> {
       Colors.purpleAccent,
       Colors.purple,
       Colors.deepOrangeAccent,
-    ];
-    final random = Random();
-    firstColor = allColors[random.nextInt(allColors.length)];
-    console.log(firstColor.toString());
-    setState(() {});
+  ];
+
+  void changeColor() {
+    _currentIndex = (_currentIndex + 1) % allColors.length;
+   setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: firstColor,
+      backgroundColor: allColors[_currentIndex],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
@@ -55,7 +75,7 @@ class _RandomColorsState extends State<RandomColors> {
                   radius: 300,
                   splashColor: Colors.black38,
                   borderRadius: BorderRadius.circular(30),
-                  onTap: changeRandomColor,
+                  onTap: changeColor,
                   child: const Icon(
                     Icons.ac_unit_rounded,
                     color: Colors.white,
